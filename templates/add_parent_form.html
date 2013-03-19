@@ -1,0 +1,25 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Add Parents Form</title>
+</head>
+<body>
+  <h2>Agregar Padres:</h2>
+  
+  Persona :{{ person.nombre }} {{person.a_paterno}}, {{person.a_materno}} <br>
+  <br>
+  <h3>Relacion: {{ relacion }}</h3>
+  {% if form.errors %}
+      <p style="color : red;">
+        Please correct the error {{ form.errors|pluralize}} below.
+      </p>
+  {% endif %}
+  
+  <form action="" method="post">
+    <table>
+      {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

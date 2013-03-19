@@ -1,0 +1,21 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>contact_form</title>
+</head>
+<body>
+  <h1>Contactenos</h1>
+  {% if form.errors %}
+      <p style="color : red;">
+       Porfavor corrija lo siguiente {{ form.errors|pluralize}} abajo.
+      </p>
+  {% endif %}
+  
+  <form action="" method="post">
+    <table>
+      {{ form.as_table }}
+    </table>
+    <input type="submit" value="Envie">
+  </form>
+</body>
+</html>

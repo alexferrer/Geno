@@ -1,0 +1,24 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Edit Person Form</title>
+</head>
+<body>
+  <h2>Editar Record:</h2>
+  <IMG SRC="/media/{{person.foto}}" WIDTH="100" HEIGHT="100" BORDER="1" ALIGN=TOP><br>
+  Persona :{{ person.nombre }} {{person.a_paterno}}, {{person.a_materno}} <br>
+  <br>
+  {% if form.errors %}
+      <p style="color : red;">
+        Por favor, corrija lo {{ form.errors|pluralize}} indicado.
+      </p>
+  {% endif %}
+  
+  <form action="" method="post">
+    <table>
+      {{ form.as_table }}
+    </table>
+    <input type="submit" value="Aceptar">
+  </form>
+</body>
+</html>

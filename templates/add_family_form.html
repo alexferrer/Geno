@@ -1,0 +1,23 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Agregar Familia</title>
+</head>
+<body>
+  <h1>Agregar Relacion e hijos:</h1>
+  Persona : {{ person.nombre }} {{person.a_paterno}}, {{person.a_materno}} <br>
+  
+  {% if form.errors %}
+      <p style="color : red;">
+        Please correct the error {{ form.errors|pluralize}} below.
+      </p>
+  {% endif %}
+  
+  <form action="" method="post">
+    <table>
+      {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

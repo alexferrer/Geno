@@ -1,0 +1,83 @@
+{% extends "genobase.html" %}
+{% block content %}
+
+<div id="person">
+     <IMG id="person_foto" SRC="/media/{{person.foto}}" WIDTH="100" HEIGHT="100" BORDER="1" alt="Img" >
+     <a   id="person_name" href="/admin/geno/nodo/{{person.pk}}/" >{{ person.nombre }}, {{person.a_paterno}} {{person.a_materno}}</a>
+     <a   id="person_edit" href="/editperson/?key={{person.pk}}">[Editar]</a>
+</div> <!--- person -->
+
+<div id="padre">
+{% if person.padre.pk %}
+   <IMG SRC="/media/{{person.padre.foto}}" WIDTH="25" HEIGHT="25" BORDER="1" ALIGN=TOP>
+   Padre : <a href="/show_person/{{person.padre.pk}}/" >{{person.padre}}</a>  <br>
+{% else %}
+   <a id="padre_edit" href="/addparent/?key={{person.pk}}&relacion=Padre">[Agregar Padre]</a>
+{% endif %}
+</div> <!--- padre -->
+ 
+<div id="madre">
+{% if person.madre.pk %}
+   <IMG SRC="/media/{{person.madre.foto}}" WIDTH="25" HEIGHT="25" BORDER="1" ALIGN=TOP>
+   Madre : <a href="/show_person/{{person.madre.pk}}/" >{{person.madre}}</a>  <br>
+{% else %}
+    <a   id="madre_edit" href="/addparent/?key={{person.pk}}&relacion=Madre">[Agregar Madre]</a>
+{% endif %}
+</div> <!--- madre -->
+
+
+<div id="hermanos">
+<h3>Hermanos</h3>
+<ul class="PersonList">
+{% for sib in sibling_list %}
+        <li>
+          <IMG SRC="/media/{{sib.foto}}" WIDTH="20" HEIGHT="20" BORDER="1" ALIGN=TOP>
+          <a href="/show_person/{{sib.pk}}/" >{{ sib.nombre }}, {{sib.a_paterno}} {{sib.a_materno}}</a>
+        </li>
+{% endfor %}
+</ul>
+</div> <!--- siblings -->
+
+
+
+
+<div id="spouse_kids">
+<h3>Relacion Esposo/Esposa :</h3> 
+
+
+<ul class="PersonList">
+{% for spouse in spouse_list %}
+   <li>
+      <IMG SRC="/media/{{spouse.foto}}" WIDTH="20" HEIGHT="20" BORDER="1" ALIGN=TOP>
+      <a href="/show_person/{{spouse.pk}}/" >{{ spouse.nombre }}, {{spouse.a_paterno}} {{spouse.a_materno}} </a>
+   </li>
+  
+   <ul class="PersonList1">
+  {% for child in child_list %}
+     {% ifequal child.madre spouse %} 
+       <li>
+          <IMG SRC="/media/{{child.foto}}" WIDTH="20" HEIGHT="20" BORDER="1" ALIGN=TOP>
+          <a href="/show_person/{{child.pk}}/" >{{ child.nombre }}, {{child.a_paterno}} {{child.a_materno}}</a>
+      </li>
+    {% endifequal %}
+    {% ifequal child.padre spouse %}        
+      <li>
+         <IMG SRC="/media/{{child.foto}}" WIDTH="20" HEIGHT="20" BORDER="1" ALIGN=TOP>
+          <a href="/show_person/{{child.pk}}/" >{{ child.nombre }}, {{child.a_paterno}} {{child.a_materno}}</a>
+       </li>
+    {% endifequal %}
+  {% endfor %} <!-- for childs -->
+      <li>
+         <!-- need to use the last child printed instead of whole list, so to select correct spouse-->
+         <!-- django ways says: compute childrens outside, or change func to get both parents-->
+         <a id="add_kids" href="/addkids/?key={{child_list.0.pk}}">[Agregar Hijo]</a>
+      </li>
+  </ul> <!-- ul kids -->
+{% endfor %}<!-- for spouse -->
+  <li>
+    <a id="add_spouse_kids" href="/addspousekids/?key={{person.pk}}">[Agregar Relacion]</a>
+  </li>
+</ul>  <!-- ul spouse -->
+</div> <!--- spouse_kids -->
+
+{% endblock %}
